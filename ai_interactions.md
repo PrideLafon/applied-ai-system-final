@@ -32,3 +32,31 @@ a venv) and pasted back errors and outputs.
 - `tests/test_recommender.py`: three new tests (instrumental preference,
   language match, mood-tag overlap).
 - `README.md` and `model_card.md`:
+---
+
+## Run 2026-11-07 14:32:36
+
+**Query:** `I need to study for my exam, something quiet`  
+**Status:** ok | **Confidence:** 0.98 | **RAG:** on | **Scorer:** builtin | **LLM:** offline
+
+**Reasoning trace**
+
+1. **validate_input** - `{"ok": true, "reason": ""}`
+2. **retrieve_knowledge** - `{"enabled": true, "hits": [["activities#Studying", 9.53]]}`
+3. **enrich_profile** - `{"notes": ["danceability=0.425 from activities#Studying", "genre=lofi from activities#Studying", "mood=focused from activities#Studying"]}`
+4. **plan** - `{"profile": {"genre": "lofi", "mood": "focused", "energy": 0.2, "danceability": 0.425, "activity": "Studying", "seed_song": null, "sources": {"energy": "user", "danceability": "activities#Studying", "genre": "activities#Studying", "mood": "activities#Studying"}}}`
+5. **score_catalog** - `{"scorer": "builtin", "top3": [["Library Rain", 5.04], ["Focus Flow", 5.03], ["Rainy Window Beats", 4.12]]}`
+6. **self_check** - `{"issues": []}`
+7. **self_check_after_repair** - `{"issues": []}`
+8. **confidence** - `{"score": 0.98, "threshold": 0.4}`
+9. **explain** - `{"style": "specialised", "grounded": true, "metrics": {"words": 33, "citations": 1, "numbers": 4}}`
+
+**Final recommendations**
+
+1. Library Rain - Paper Lanterns (lofi/focused, score 5.04)
+2. Focus Flow - LoRoom (lofi/focused, score 5.03)
+3. Rainy Window Beats - Paper Lanterns (lofi/moody, score 4.12)
+4. Midnight Coding - LoRoom (lofi/chill, score 3.98)
+5. Quiet Piano Hours - Elena Voss (classical/focused, score 3.29)
+
+**Explanation:** Steady tempo and few surprises keep working memory free; avoid high-energy tracks [activities#Studying]. "Library Rain" by Paper Lanterns has energy 0.40, inside the 0.20-0.45 range and danceability 0.58. Keep "Focus Flow" queued next.
