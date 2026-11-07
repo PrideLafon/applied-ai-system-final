@@ -90,7 +90,7 @@ def build_parser() -> argparse.ArgumentParser:
 def main() -> None:
     """Load the catalog and print recommendations for each profile."""
     args = build_parser().parse_args()
-    songs = load_songs("data/songs.csv")
+    songs = load_songs("data/songs_project3.csv")
     print(f"Loaded songs: {len(songs)}")
     for name, prefs in PROFILES.items():
         if args.compare:

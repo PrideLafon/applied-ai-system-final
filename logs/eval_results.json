@@ -1,0 +1,20 @@
+{
+  "passed": 13,
+  "total": 13,
+  "rag_on_pass": 4,
+  "rag_off_pass": 0,
+  "style_metrics": {
+    "words": {
+      "baseline": 63.9,
+      "specialised": 33.8
+    },
+    "citations": {
+      "baseline": 0,
+      "specialised": 1
+    },
+    "numbers": {
+      "baseline": 15,
+      "specialised": 4
+    }
+  }
+}

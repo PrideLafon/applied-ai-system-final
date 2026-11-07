@@ -5,7 +5,7 @@ import pytest
 from src.recommender import (MODES, Recommender, Song, UserProfile,
                              load_songs, recommend_songs, score_song)
 
-DATA = Path(__file__).resolve().parent.parent / "data" / "songs.csv"
+DATA = Path(__file__).resolve().parent.parent / "data" / "songs_project3.csv"
 
 
 def make_small_recommender() -> Recommender:
