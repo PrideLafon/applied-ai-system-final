@@ -79,13 +79,14 @@ Request: "I need to study for my exam, something quiet".
 
 ## AI Collaboration
 
-**How I used AI:** I used Claude to plan the extension, generate the first version of the modules, and debug errors. I gave it the assignment page and rubric, then ran everything myself, read the output, and decided what to keep.
+**How I used AI:** I used Claude to plan the extension, generate the first version of the modules, and debug errors.It proposed an architecture and generated the modules, and I built the project one commit at a time, running every step myself. When something failed, I pasted the exact error back and we fixed it. For example, I had cloned into the wrong folder, my CLI file was missing, and my Project 3 tests broke when I swapped the song catalog. I used the AI for planning, code generation and debugging, but I ran every command and decided what to keep.
 
-**One suggestion I accepted:** The AI proposed a *critic step that can repair results automatically* (diversify artists, drop an inferred genre). it made the guardrail change behaviour rather than just print a warning.
+**One suggestion I accepted:** The AI suggested a critic step that checks the recommendations and repairs them automatically (spreading out repeated artists, dropping an inferred genre when the match is weak). I accepted it because it made the guardrail change the system’s behavior rather than just print a warning, and the tests confirmed it.
 
-**One suggestion I revised or rejected:** Options that fit this build, if they are true for you: (a) the AI made the Gemini API required and I made the system offline-first so it reproduces without a key; (b) the AI let retrieved guidance override words in the request and I changed it so explicit user words always win; (c) the AI's first stemmer and stopword list had bugs that tests exposed and I fixed them; (d) I replaced the AI's claim that the built-in scorer was a "faithful port" of Project 3 with an honest description. Say why you changed it (over-engineered, harder to read, poor fit, or scoped down).
+**One suggestion I revised or rejected:** The AI first described the built-in scorer as a “faithful port” of my Project 3 recipe. I realized that was not accurate, because it had not seen my actual code and my Project 3 version has extra features such as ranking modes, a diversity penalty, language and mood tags. I changed the docstring and README to say it is a simplified four-feature scorer, and I kept my original Project 3 code and tests unchanged by pointing those tests at my original catalog file. I made this change because overstating what the system reuses would be misleading.
 
-**What I would do differently:** write the evaluation cases before the code, and read every trace instead of only the summary.
+
+**What I would do differently:** I would write the evaluation cases before the code, and I would read every trace instead of only the summary numbers. I would also check the assistant’s claims about my own project against my actual code earlier, since the “faithful port” claim was only caught late.
 
 ## Future Improvements
 
