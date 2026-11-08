@@ -2,7 +2,6 @@
 
 > **Base project:** *Music Recommender Simulation* (AI110 Project 3, Module 3).
 > **Final project:** AI110 Project 4, *Applied AI System*.
-> Loom walkthrough (optional): <<< PASTE LOOM LINK OR DELETE THIS LINE
 
 ## 1. Original Project (Music Recommender Simulation)
 
@@ -10,7 +9,7 @@ The original **Music Recommender Simulation** (Project 3) was a content-based re
 CSV catalog against a hand-written user profile and returned the top-k songs with an explanation of each score. It
 supported several ranking modes, a diversity penalty for repeated artists, and optional preferences such as language,
 mood tags and instrumentalness, and it came with a model card on bias and weight experiments. Its limitation: users
-had to supply an exact profile, and nothing checked whether the output made sense. <<< CHECK THIS PARAGRAPH MATCHES YOUR PROJECT 3. Your original docs are in `README_project3.md` and `model_card_project3.md`.
+had to supply an exact profile, and nothing checked whether the output made sense.
 
 ## 2. Title and Summary
 
@@ -309,11 +308,9 @@ critic, agent end-to-end, LLM failure and ungrounded-LLM handling).
 
 ## 8. Reflection
 
-<<< WRITE 3-4 SENTENCES IN YOUR OWN WORDS: what this project taught you about AI and problem-solving.
-Full responsible-AI reflection (AI collaboration, accepted and rejected suggestions, biases, misuse, limitations) is in
-[`model_card.md`](model_card.md).
+The biggest lesson was that making an AI system reliable is a design job, not a finishing touch. The retrieval step improved results, but the guardrails, the self-check and the test harness changed what I built even more, because they forced me to say what “working” means and to measure it. When I turned retrieval off, the context-dependent test cases went from passing to failing, so I could prove it helped instead of just claiming it. I also learned that small details break AI systems quietly. A stemming bug and a stopword list problem made correct code return wrong results until my tests exposed them.
 
-**Portfolio note:** <<< WRITE 2-3 SENTENCES IN YOUR OWN WORDS: what this project says about you as an AI engineer.
+**Portfolio note:** This project shows that I can take a simple prototype and turn it into a verifiable AI system: retrieval that measurably changes behavior, guardrails that fail safely, and honest evaluation of where it breaks. I also learned to debug my own environment step by step (Git, virtual environments, test failures) rather than only writing code.
 
 ## 9. Repository Layout
 
