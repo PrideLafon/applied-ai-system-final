@@ -1,9 +1,12 @@
 """Scoring bridge to the original Music Recommender (Project 3).
 
-`builtin` is a faithful port of the Project 3 weighted recipe:
+`builtin` is a simplified four-feature scorer modeled on the Project 3 idea:
     genre 2.0 (exact) + mood 1.0 (exact)
     + energy 1.5 x closeness + danceability 1.0 x closeness
-`project` calls your real `recommend_songs` from src/recommender.py.
+It leaves out Project 3's extra features (ranking modes, diversity penalty,
+language, mood tags, instrumentalness). `project` tries to call the real
+`recommend_songs` from src/recommender.py and falls back to `builtin` if the
+catalog lacks the columns that function needs.
 """
 
 from __future__ import annotations

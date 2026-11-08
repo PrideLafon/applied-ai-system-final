@@ -1,0 +1,33 @@
+flowchart TD
+    U(["User request (free text)"]) --> V{"Input guardrails<br/>validate_query"}
+    V -- "empty, too long, injection" --> B[/"Blocked with reason"/]
+    V -- "clean text" --> R
+
+    subgraph RAG ["Multi-source retrieval (retriever.py)"]
+        R["BM25 search"] --> K[("Knowledge base<br/>data/knowledge/*.md<br/>activities, genres, moods")]
+        R --> S[("Song catalog<br/>data/songs.csv<br/>more-like-X seed")]
+    end
+
+    R --> P["Planner (planner.py)<br/>explicit words win,<br/>retrieved guidance fills gaps"]
+    LLM{{"Optional Gemini LLM<br/>JSON profile, falls back to rules"}} -.-> P
+    P --> PV["Profile validation<br/>clamp 0 to 1, drop unknown genre or mood"]
+    PV --> SC["Scorer (scoring.py)<br/>weighted genre, mood, energy, danceability"]
+    SC --> C{"Self-check critic<br/>(critic.py)"}
+    C -- "artist repeat" --> RP1["Repair: diversify artists"]
+    C -- "weak match, inferred genre" --> RP2["Repair: drop genre and re-rank"]
+    C -- "ok" --> CF
+    RP1 --> CF
+    RP2 --> CF
+    CF{"Confidence below 0.40?"}
+    CF -- "yes" --> H(["Human in the loop:<br/>ask a clarifying question"])
+    H -.-> U
+    CF -- "no" --> E["Explainer (explain.py)<br/>DJ Vibe style, cited, grounding check"]
+    E --> O(["Ranked songs and cited explanation"])
+
+    P -.-> T[("Trace logger<br/>ai_interactions.md<br/>logs/vibefinder.log")]
+    C -.-> T
+    CF -.-> T
+    E -.-> T
+
+    EV[["Test harness (evaluate.py)<br/>13 cases, RAG on and off, style comparison"]] -.-> U
+    EV -.-> T
