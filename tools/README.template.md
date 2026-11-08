@@ -2,7 +2,6 @@
 
 > **Base project:** *Music Recommender Simulation* (AI110 Project 3, Module 3).
 > **Final project:** AI110 Project 4, *Applied AI System*.
-> Loom walkthrough (optional): <<< PASTE LOOM LINK OR DELETE THIS LINE
 
 ## 1. Original Project (Music Recommender Simulation)
 
@@ -10,7 +9,7 @@ The original **Music Recommender Simulation** (Project 3) was a content-based re
 CSV catalog against a hand-written user profile and returned the top-k songs with an explanation of each score. It
 supported several ranking modes, a diversity penalty for repeated artists, and optional preferences such as language,
 mood tags and instrumentalness, and it came with a model card on bias and weight experiments. Its limitation: users
-had to supply an exact profile, and nothing checked whether the output made sense. <<< CHECK THIS PARAGRAPH MATCHES YOUR PROJECT 3. Your original docs are in `README_project3.md` and `model_card_project3.md`.
+had to supply an exact profile, and nothing checked whether the output made sense.
 
 ## 2. Title and Summary
 
@@ -106,7 +105,38 @@ What these show:
 `python -m src.vibefinder.evaluate` (deterministic: offline, built-in scorer):
 
 ```text
-{{EVAL}}
+
+ python -m src.vibefinder.evaluate                                      
+case              expected              got                   conf   result
+study             ok                    ok                    0.98   PASS
+workout           ok                    ok                    0.96   PASS
+party             ok                    ok                    1.00   PASS
+sleep             ok                    ok                    1.00   PASS
+rainy_jazz        ok                    ok                    1.00   PASS
+road_trip_rock    ok                    ok                    0.99   PASS
+more_like         ok                    ok                    0.95   PASS
+conflict_flagged  ok                    ok                    0.82   PASS
+gibberish         needs_clarification   needs_clarification   0.28   PASS
+empty             rejected              rejected              0.00   PASS
+injection         rejected              rejected              0.00   PASS
+too_long          rejected              rejected              0.00   PASS
+non_string        rejected              rejected              0.00   PASS
+
+Passed 13/13 | mean confidence (answered): 0.96
+
+RAG ablation (cases that depend on retrieved guidance)
+case      RAG on                RAG off               
+study     PASS (conf 0.98)      FAIL (conf 0.40)      
+workout   PASS (conf 0.96)      FAIL (conf 0.28)      
+party     PASS (conf 1.00)      FAIL (conf 0.39)      
+sleep     PASS (conf 1.00)      FAIL (conf 0.28)      
+RAG on: 4/4 pass | RAG off: 0/4 pass
+
+Explanation style (mean over answered cases)
+metric      baseline  specialised 
+words       63.9      33.8        
+citations   0.0       1.0         
+numbers     15.0      4.0         
 ```
 
 Unit tests: `{{PYTEST}}` (includes the Project 3 tests plus guardrails, catalog loading, scoring, retrieval, planner,
